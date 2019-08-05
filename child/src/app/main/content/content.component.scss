@@ -1,0 +1,25 @@
+button{
+  width: 300px;
+  background-color: darkcyan;
+  color: #FFFFFF;
+  padding: 10px;
+  font-size: 20px;
+}
+.container{
+  border: 1px solid #aaaaaa;
+  padding: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.half{
+  flex: 1;
+}
+.half:last-child{
+  border-left: 1px solid #aaaaaa;
+}
+.step{
+  font-size: 40px;
+  font-weight: bold;
+  margin-left: 20px;
+}

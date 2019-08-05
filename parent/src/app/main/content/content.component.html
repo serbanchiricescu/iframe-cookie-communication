@@ -1,0 +1,27 @@
+<h2>Simple example of iframe communicating with parent and the other way around</h2>
+<div class="container">
+  <div class="half">
+    <label>
+      Cookie:
+      <input [(ngModel)]="parentCookie" type="text"/>
+    </label>
+    <button (click)="store()">Store cookie</button>
+  </div>
+  <div class="half">
+    <p class="step">Zone 1</p>
+  </div>
+</div>
+<div class="container">
+  <div class="half">
+    <p>Loaded cookie from child: {{username}}</p>
+    <button (click)="getCookies()">Get child cookie</button><br/>
+  </div>
+  <div class="half">
+    <p class="step">Zone 2</p>
+  </div>
+
+</div>
+
+
+
+<app-iframe></app-iframe>

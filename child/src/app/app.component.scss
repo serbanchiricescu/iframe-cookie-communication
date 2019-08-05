@@ -1,0 +1,18 @@
+nav{
+  width: 100%;
+  background-color: #aaaaaa;
+  height: 100%;
+  a{
+    margin-left: 20px;
+    //border: 1px solid #ffffff;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    color: #1b00d9;
+  }
+  a:hover, a.active{
+    color: #FFFFFF;
+    text-decoration: underline;
+    background-color: darkcyan;
+  }
+}

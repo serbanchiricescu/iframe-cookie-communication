@@ -1,0 +1,19 @@
+
+<div class="container">
+  <div class="half">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label>
+        <span>Username:</span>
+        <input type="text" formControlName="username">
+      </label>
+      <label>
+        <span>Password:</span>
+        <input type="password" formControlName="password">
+      </label>
+      <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+    </form>
+  </div>
+  <div class="half">
+    <p class="step">Zone 5</p>
+  </div>
+</div>
