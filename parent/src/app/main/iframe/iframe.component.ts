@@ -19,14 +19,14 @@ export class IframeComponent implements OnInit {
 
   ngOnInit() {
     window.addEventListener('message', e => {
-      if (e.origin === this.subdomain) {
+      if (e.origin === `http://${environment.subdomain}`) {
         this.cookieStatus = `${e.data} Message from: ${e.origin}`;
       }
     });
   }
 
   forceCookie() {
-    this.iframe.nativeElement.contentWindow.postMessage('Get the cookie, now!', this.subdomain);
+    this.iframe.nativeElement.contentWindow.postMessage('Get the cookie, now!', `http://${environment.subdomain}`);
   }
 
 }
