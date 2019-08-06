@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CookieService} from 'ngx-cookie-service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.cookieService.set('username', this.loginForm.controls.username.value, 3600, '/', 'ceva123.com');
+    this.cookieService.set('username', this.loginForm.controls.username.value, 3600, '/', environment.host);
     this.a = this.cookieService.get('username');
   }
 

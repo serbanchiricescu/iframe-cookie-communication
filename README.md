@@ -17,16 +17,77 @@ If it doesn't return a version, install it either from [NodeJS Official Website]
 If the command `ng version` doesn't work, install it from the command line with:
 `npm install -g @angular/cli`
 
+### Apache 2 Web Server
+
+You will need to follow the instructions depending on your operating system:
+
+#### Mac OSX
+
+OSX comes with Apache 2 pre-installed, but in order to check run `sudo apachectl status` and see if the command returns a status.
+If not, please follow the [steps from here](https://tecadmin.net/install-apache-macos-homebrew/) to install Apache 2 on Mac OSX.
+
+### Debian systems
+
+Run `sudo systemctl status apache2` and check if the service is running or installed. If not, please follow the [steps from here](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04).
+
+### Fedora systems
+
+As above, run `sudo systemctl status apache2` to check. For installing it, follow the [steps from here](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-apache-http-server/).
+
+### Windows
+
+For Windows, please follow the [steps from here](https://www.znetlive.com/blog/how-to-install-apache-php-and-mysql-on-windows-10-machine/).
+
 ## Installation
 
 After cloning the repo, go into parent and child and run `npm install`
-Modify your hosts file (e.g. on MacOS the hosts file is under `etc/hosts`) and add the following lines:
+
+Modify your hosts file (e.g. on MacOS the hosts file is under `/etc/hosts`) and add the following lines:
 > localhost myprivatedomain.com
 
 > localhost dev.myprivatedomain.com
 
 This will map your localhost to a domain and a subdomain respectively. You can choose any name for it, but it will be used later when running the app.
-Go into `parent/src/app/main/iframe/iframe.component.html` and replace the `src` attribute value with your chosen subdomain (include the protocol also, e.g. `http://dev.myprivatedomain.com`)
+
+You will need to modify the Apache configuration in order to create Virtual Hosts to map the domains from above. In the installation folder of the Apache 2 you will find a file called `httpd.conf`. Open it and:
+1. Uncomment the line `LoadModule proxy_module libexec/apache2/mod_proxy.so` by deleting the `#` before it
+2. Uncomment the line `LoadModule proxy_http_module libexec/apache2/mod_proxy_http.so` by deleting the `#` before it
+3. Add the following at the end of the file:
+```
+<VirtualHost *:80>
+     ServerAdmin me@myprivatedomain.com
+     ServerName myprivatedomain.com
+     ProxyPreserveHost On
+ 
+     # setup the proxy
+     <Proxy *>
+         Order allow,deny
+         Allow from all
+     </Proxy>
+     ProxyPass / http://localhost:4200/
+     ProxyPassReverse / http://localhost:4200/
+ </VirtualHost>
+  
+ <VirtualHost *:80>
+     ServerAdmin me@myprivatedomain.com
+     ServerName dev.myprivatedomain.com	
+     ProxyPreserveHost On
+ 
+     # setup the proxy
+     <Proxy *>
+         Order allow,deny
+         Allow from all
+     </Proxy>
+     ProxyPass / http://localhost:4279/
+     ProxyPassReverse / http://localhost:4279/
+ </VirtualHost>
+```
+
+**Note: please be careful at the `ServerName` to include the same domains as in the hosts file**
+
+Now restart the Apache 2 service.
+
+You will need to replace also the environment constants in both Angular apps. Replace the `host` and `subdomain` properties from `parent/src/environments/environment.ts` and `child/src/environments/environment.ts`
 
 ## Running the example
 First, go into parent folder and run `ng serve --public-host=myprivatedomain.com` and keep the terminal open

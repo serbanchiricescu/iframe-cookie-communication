@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-content',
@@ -22,7 +23,7 @@ export class ContentComponent implements OnInit {
   }
 
   store() {
-    this.cookieService.set('parent', this.parentCookie, 3600, '/', 'ceva123.com');
+    this.cookieService.set('parent', this.parentCookie, 3600, '/', environment.host);
   }
 
 }
