@@ -83,9 +83,9 @@ You will need to modify the Apache configuration in order to create Virtual Host
  </VirtualHost>
 ```
 
-**Note: please be careful at the `ServerName` to include the same domains as in the hosts file**
+**Note: please be careful at the `ServerName` and `ServerAdmin` to include the same domains as in the hosts file**
 
-Now restart the Apache 2 service.
+Now restart the Apache 2 service depending on your operating system (check Apache install tutorials).
 
 You will need to replace also the environment constants in both Angular apps. Replace the `host` and `subdomain` properties from `parent/src/environments/environment.ts` and `child/src/environments/environment.ts`
 
